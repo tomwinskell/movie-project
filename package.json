@@ -2,11 +2,16 @@
   "name": "movie-project-workspace",
   "version": "1.0.0",
   "private": true,
-  "workspaces": [
-    "apps/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "apps/*"
+    ],
+    "nohoist": [
+      "**"
+    ]
+  },
   "scripts": {
-    "dev": "concurrently \"npm run dev --workspace=server\" \"npm run dev --workspace=web\""
+    "dev": "concurrently \"yarn workspace server dev\" \"yarn workspace web dev\""
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

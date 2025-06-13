@@ -1,16 +1,30 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Movie from './components/Movie';
+import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import useMovies from './hooks/useMovies';
 
 export default function Home() {
-  const { loadItems, hasMoreItems, movies, getMovies } = useMovies();
+  const { movies, getMovies } = useMovies();
   useEffect(() => {
     getMovies(1);
   });
+
+  const [page, setPage] = useState(1);
+  const [hasMoreItems, setHasMoreItems] = useState(true);
+  const totalPages = useSelector((state) => state.movies.total_pages);
+
+  const loadItems = () => {
+    if (page < totalPages || totalPages === 0) {
+      setPage(page + 1);
+      getMovies(page + 1);
+    } else {
+      setHasMoreItems(false);
+    }
+  };
 
   return (
     <Container>

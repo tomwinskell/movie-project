@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import {
@@ -14,33 +14,29 @@ const WatchListButton = ({ movie }) => {
   const authenticated = useSelector((state) => state.auth.authenticated);
   const { watchListMovies } = useWatchListMovies();
 
-  const watchlistIncludesMovie = watchListMovies.some(
-    (movieOnList) => movieOnList.id === movie.id
+  const watchlistIncludesMovie = useMemo(
+    () => watchListMovies.some((m) => m.id === movie.id),
+    [watchListMovies, movie.id]
   );
 
-  if (authenticated) {
-    return watchlistIncludesMovie ? (
-      <button
-        onClick={() => {
-          dispatch(removeMovieFromWatchList(movie));
-          router.push('/watch-list');
-        }}
-      >
-        Remove from Watchlist
-      </button>
-    ) : (
-      <button
-        onClick={() => {
-          dispatch(addMovieToWatchList(movie));
-          router.push('/watch-list');
-        }}
-      >
-        Add to Watchlist
-      </button>
-    );
-  } else {
-    return null;
+  if (!authenticated) {
+    return <button disabled>Login to add to Watchlist</button>;
   }
+
+  const handleClick = () => {
+    if (watchlistIncludesMovie) {
+      dispatch(removeMovieFromWatchList(movie));
+    } else {
+      dispatch(addMovieToWatchList(movie));
+    }
+    router.push('/watch-list');
+  };
+
+  return (
+    <button onClick={handleClick}>
+      {watchlistIncludesMovie ? 'Remove from Watchlist' : 'Add to Watchlist'}
+    </button>
+  );
 };
 
 export default WatchListButton;

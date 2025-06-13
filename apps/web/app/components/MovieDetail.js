@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import { fetchMovie } from '../store/slices/moviesSlice';
-import WatchListButton from '../components/WatchListButton';
+import WatchListButton from './WatchListButton';
 
 const POSTER_PATH = 'http://image.tmdb.org/t/p/w185';
 const BACKDROP_PATH = 'http://image.tmdb.org/t/p/w1280';
@@ -44,6 +44,7 @@ const MovieDetail = () => {
           <div id="infoAttr">
             <p className="first">{movie.release_date}</p>
             <p>{movie.vote_average}/10</p>
+
             <WatchListButton movie={movie} />
           </div>
         </div>
