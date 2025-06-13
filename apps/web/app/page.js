@@ -11,7 +11,7 @@ export default function Home() {
   const { movies, getMovies } = useMovies();
   useEffect(() => {
     getMovies(1);
-  });
+  }, []);
 
   const [page, setPage] = useState(1);
   const [hasMoreItems, setHasMoreItems] = useState(true);
