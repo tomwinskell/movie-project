@@ -11,4 +11,5 @@ module.exports = function (app) {
   app.get('/auth/current_user', requireAuth, Authentication.currentUser);
   app.post('/watchlist', requireAuth, WatchList.addMovieToList);
   app.get('/watchlist', requireAuth, WatchList.getWatchList);
+  app.patch('/watchlist', requireAuth, WatchList.removeMovieFromList);
 };
