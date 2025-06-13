@@ -5,10 +5,6 @@
   "workspaces": [
     "apps/*"
   ],
-  "dependencies": {
-    "server": "^1.0.0",
-    "web": "^1.0.0"
-  },
   "scripts": {
     "dev": "concurrently \"npm run dev --workspace=server\" \"npm run dev --workspace=web\""
   },
