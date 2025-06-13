@@ -8,6 +8,7 @@ const requireSignin = passport.authenticate('local', { session: false });
 module.exports = function (app) {
   app.post('/auth/signup', Authentication.signup);
   app.post('/auth/signin', requireSignin, Authentication.signin);
-  app.get('/success', requireAuth, (req, res) => res.send('Successful login.'));
   app.get('/auth/current_user', requireAuth, Authentication.currentUser);
+  app.post('/watchlist', requireAuth, WatchList.addMovieToList);
+  app.get('/watchlist', requireAuth, WatchList.getWatchList);
 };

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api`;
+const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 const isServer = typeof window === 'undefined';
 
 // Async thunks
