@@ -10,7 +10,7 @@ export default function Home() {
   const { loadItems, hasMoreItems, movies, getMovies } = useMovies();
   useEffect(() => {
     getMovies(1);
-  }, []);
+  });
 
   return (
     <Container>
